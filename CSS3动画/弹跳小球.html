@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弹跳小球</title>
+</head>
+<style>
+    body {
+        background-color: darkslategray;
+    }
+    
+    .box {
+        position: relative;
+        top: 300px;
+        left: 50px;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        background: radial-gradient(red, rgb(165, 165, 23));
+        animation-name: move;
+        animation-duration: 1s;
+        /* animation-timing-function: ease-out; */
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+    }
+    
+    @keyframes move {
+        to {
+            transform: translateY(-300px);
+        }
+    }
+    
+    .shadow {
+        position: relative;
+        top: 300px;
+        width: 200px;
+        height: 30px;
+        background-color: rgb(34, 31, 31);
+        border-radius: 50%;
+        filter: blur(5px);
+        animation-name: shadow;
+        animation-duration: 1s;
+        /* animation-delay: 1s; */
+        /* animation-timing-function: ease-out; */
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
+    }
+    
+    @keyframes shadow {
+        to {
+            height: 20px;
+            background-color: rgb(0, 0, 0.1);
+            filter: blur(35px);
+        }
+    }
+</style>
+
+<body>
+    <div class="box"></div>
+    <div class="shadow"></div>
+</body>
+
+</html>
