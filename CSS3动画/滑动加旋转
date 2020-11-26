@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background: darkslategray;
+    }
+    
+    .container {
+        float: left;
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        left: 40%;
+        top: 200px;
+        border: 1px solid white;
+    }
+    
+    .box {
+        height: 100px;
+        width: 100px;
+        background-color: deepskyblue;
+        animation-name: first;
+        animation-duration: 2s;
+        animation-delay: 0.5s;
+        animation-timing-function: linear;
+        animation-timing-function: ease-out;
+        /* animation-iteration-count: infinite; */
+    }
+    
+    @keyframes first {
+        0% {
+            transform: translate(0, 0);
+        }
+        25% {
+            transform: translateX(300px);
+            border-radius: 50%;
+            background-color: white;
+        }
+        50% {
+            transform: translate(300px, 300px);
+            border-radius: 0;
+            background-color: aquamarine;
+        }
+        75% {
+            transform: translateY(300px);
+            border-radius: 50%;
+            background-color: yellow;
+        }
+    }
+    
+    .container2 {
+        margin-top: 700px;
+        margin-left: 45%;
+        height: 400px;
+        width: 300px;
+        margin-bottom: 20px;
+        font-size: 28px;
+        color: white;
+        background-color: lightcoral;
+        display: flex;
+        animation-name: color, scale;
+        animation-duration: 2s;
+    }
+    
+    @keyframes color {
+        25% {
+            border-radius: 50%;
+            background-color: thistle;
+        }
+        50% {
+            background-color: yellowgreen;
+            border-radius: 0;
+        }
+        75% {
+            border-radius: 50%;
+            background-color: violet;
+        }
+    }
+    
+    @keyframes scale {
+        25%,
+        75% {
+            transform: scale(0.4);
+        }
+        50% {
+            transform: scale(1) rotate(360deg);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+    
+    .container2 p {
+        margin: auto;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="box"></div>
+    </div>
+    <div class="container2">
+        <p>周星星</p>
+    </div>
+</body>
+
+</html>
