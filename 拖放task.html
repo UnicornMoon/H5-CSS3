@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .tweaked {
+        display: inline-block;
+        margin: 1em 0;
+        padding: 1em 2em;
+        border: 1px solid black;
+    }
+    
+    #source {
+        color: palevioletred;
+    }
+</style>
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        let draggable = document.getElementById("source");
+        let dropable = document.getElementById("target");
+        let status = document.getElementById("status");
+        let data = document.getElementById("data");
+        let dropped = false;
+
+        draggable.addEventListener("dragstart", start); //开始拖动元素时
+        draggable.addEventListener("dragend", end); //完成拖动后触发
+        dropable.addEventListener("dragover", over); //被拖动元素进入在另一容器内时触发
+        dropable.addEventListener("dragleave", leave); //当被拖动离开目标容器范围时触发
+        dropable.addEventListener("drop", droprel); //拖动过程中释放鼠标触发
+
+        function start(event) {
+            status.innerHTML = "拖动中";
+            event.target.style.border = "1px dashed blue";
+            // "text/plain"为纯文本，浏览器不会对其进行处理
+            event.dataTransfer.setData("text/plain", event.target.id);
+            data.innerHTML = event.dataTransfer.getData("text/plain");
+        }
+
+        function end(event) {
+            if (!dropped) {
+                //如果释放了鼠标
+                status.innerHTML = "拖动取消";
+            }
+            event.target.style.border = "1px solid black";
+            data.innerHTML = event.dataTransfer.getData("text/plain") || 'empty';
+            if (dropped) {
+                draggable.removeEventListener("dragstart", start); //开始拖动元素时
+                draggable.removeEventListener("dragend", end); //完成拖动后触发
+                dropable.removeEventListener("dragover", over); //被拖动元素进入在另一容器内时触发
+                dropable.removeEventListener("dragleave", leave); //当被拖动离开目标容器范围时触发
+                dropable.removeEventListener("drop", droprel); //拖动过程中释放鼠标触发
+            }
+        }
+
+        function over(event) {
+            status.innerHTML = "元素进入目标容器";
+            event.preventDefault();
+        }
+
+        function leave(event) {
+            status.innerHTML = "元素离开目标容器";
+            event.preventDefault();
+        }
+
+        function droprel(event) {
+            dropped = true;
+            status.innerHTML = "拖放完成";
+            event.preventDefault();
+            var newData = event.dataTransfer.getData("text/plain");
+            var element = document.getElementById(newData);
+            event.target.appendChild(element);
+            element.style.cssText = 'display:block;color:blue';
+            element.innerHTML = "我被拖进来了";
+        }
+    })
+</script>
+
+<body>
+    <div>
+        <span class="tweaked" id="source" draggable="true">
+        Select this element, drag it to the Drop Zone and then release the selection to move the element.
+    </span>
+    </div>
+    <span class="tweaked" id="target">目标容器</span>
+    <div>状态: <span id="status">无</span></div>
+    <div>数据: <span id="data">无</span></div>
+</body>
+
+</html>
